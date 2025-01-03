@@ -1,4 +1,3 @@
-using E_CommerceApp.Interfaces;
 using E_CommerceApp.Models;
 using E_CommerceApp.Repositories;
 using E_CommerceApp.Test.Helper;
@@ -19,9 +18,9 @@ namespace E_CommerceApp.Test.RepositoryTest
         }
 
         [Fact]
-        public async void OrderRepository_InsertAsync_ReturnOrder()
+        public void OrderRepository_InsertAsync_ReturnOrder()
         {
-            //Arrange
+            #region Arrange
             var order = new Order
             {
                 ApplicantId = "1",
@@ -30,17 +29,22 @@ namespace E_CommerceApp.Test.RepositoryTest
                 TotalAmount = 100,
                 OrderDate = DateTime.Now,
             };
-            //Act
-            var result = _orderRepository.InsertAsync(order);
+            #endregion
 
-            //Assert
+            #region Act
+            var result = _orderRepository.InsertAsync(order);
+            #endregion
+
+            #region Assert
             result.Should().BeOfType<Task<Order>>();
+            #endregion
+
         }
 
         [Fact]
-        public async void OrderRepository_UpdateAsync_ReturnOrder()
+        public void OrderRepository_UpdateAsync_ReturnOrder()
         {
-            //Arrange
+            #region Arrange
             var order = new Order
             {
                 OrderId = 1,
@@ -50,58 +54,72 @@ namespace E_CommerceApp.Test.RepositoryTest
                 TotalAmount = 100,
                 OrderDate = DateTime.Now,
             };
-            //Act
+            #endregion
+
+            #region Act
             var result = _orderRepository.UpdateAsync(order);
+            #endregion
 
-            //Assert
+            #region Assert
             result.Should().BeOfType<Task<Order>>();
+            #endregion
         }
 
         [Fact]
-        public async void OrderRepository_DeleteAsync_ReturnOrder()
+        public void OrderRepository_DeleteAsync_ReturnOrder()
         {
-            //Arrange
+            #region Arrange
             var orderId = 12;
-            //Act
+            #endregion
+            #region Act
             var result = _orderRepository.DeleteAsync(orderId);
+            #endregion
 
-            //Assert
+            #region Assert
             result.Should().BeOfType<Task<Order>>();
+            #endregion
         }
 
         [Fact]
-        public async void OrderRepository_GetOrderByIdAsync_ReturnNullableOrder()
+        public void OrderRepository_GetOrderByIdAsync_ReturnNullableOrder()
         {
-            //Arrange
+            #region Arrange
             var orderId = 1;
-            //Act
+            #endregion
+            #region Act
             var result = _orderRepository.GetOrderByIdAsync(orderId);
+            #endregion
 
-            //Assert
+            #region Assert
             result.Should().BeOfType<Task<Order?>>();
+            #endregion
         }
-
-        public async void OrderRepository_GetAllAsync_ReturnIEnumerableOrder()
+        [Fact]
+        public void OrderRepository_GetAllAsync_ReturnIEnumerableOrder()
         {
-            //Arrange
 
-            //Act
+            #region Act
             var result = _orderRepository.GetAllAsync();
+            #endregion
 
-            //Assert
+            #region Assert
             result.Should().BeOfType<Task<IEnumerable<Order>>>();
+            #endregion
         }
 
-
-        public async void OrderRepository_GetByIdAsync_ReturnNullableOrder()
+        [Fact]
+        public void OrderRepository_GetByIdAsync_ReturnNullableOrder()
         {
-            //Arrange
+            #region Arrange
             var orderId = 1;
-            //Act
+            #endregion
+            #region Act
             var result = _orderRepository.GetByIdAsync(orderId);
+            #endregion
 
-            //Assert
+            #region Assert
             result.Should().BeOfType<Task<Order?>>();
+            #endregion
         }
 
     }

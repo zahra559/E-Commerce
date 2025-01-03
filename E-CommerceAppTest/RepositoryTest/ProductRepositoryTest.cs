@@ -20,9 +20,9 @@ namespace E_CommerceApp.Test.RepositoryTest
         }
 
         [Fact]
-        public async void ProductRepository_InsertAsync_ReturnProduct()
+        public void ProductRepository_InsertAsync_ReturnProduct()
         {
-            //Arrange
+            #region Arrange
             var product = new Product
             {
                 Name = "Product12",
@@ -30,17 +30,21 @@ namespace E_CommerceApp.Test.RepositoryTest
                 Price = 5,
                 Stock = "Clothe"
             };
-            //Act
-            var result = _productRepository.InsertAsync(product);
+            #endregion
 
-            //Assert
+            #region Act
+            var result = _productRepository.InsertAsync(product);
+            #endregion
+
+            #region Assert
             result.Should().BeOfType<Task<Product>>();
+            #endregion
         }
 
         [Fact]
-        public async void ProductRepository_UpdateAsync_ReturnProduct()
+        public void ProductRepository_UpdateAsync_ReturnProduct()
         {
-            //Arrange
+            #region Arrange
             var product = new Product
             {
                 ProductId = 1,
@@ -49,62 +53,79 @@ namespace E_CommerceApp.Test.RepositoryTest
                 Price = 20,
                 Stock = "Clothe"
             };
-            //Act
+            #endregion
+
+            #region Act
             var result = _productRepository.UpdateAsync(product);
+            #endregion
 
-            //Assert
+            #region Assert
             result.Should().BeOfType<Task<Product>>();
+            #endregion
         }
 
         [Fact]
-        public async void ProductRepository_DeleteAsync_ReturnProduct()
+        public void ProductRepository_DeleteAsync_ReturnProduct()
         {
-            //Arrange
+            #region Arrange
             var productId = 12;
-            //Act
-            var result = _productRepository.DeleteAsync(productId);
+            #endregion
 
-            //Assert
+            #region Act
+            var result = _productRepository.DeleteAsync(productId);
+            #endregion
+
+            #region Assert
             result.Should().BeOfType<Task<Product>>();
+            #endregion
         }
 
         [Fact]
-        public async void ProductRepository_GetProducts_ReturnListProduct()
+        public void ProductRepository_GetProducts_ReturnListProduct()
         {
-            //Arrange
+            #region Arrange
             var searchCriteria = new GetProductsDto
             {
                 ProductName = "Product2",
                 StockName = "Food"
             };
-            //Act
+            #endregion
+
+            #region Act
             var result = _productRepository.GetProducts(searchCriteria);
+            #endregion
 
-            //Assert
+            #region Assert
             result.Should().BeOfType<Task<List<Product>>>();
+            #endregion
         }
 
-        public async void ProductRepository_GetAllAsync_ReturnIEnumerableProduct()
+        [Fact]
+        public void ProductRepository_GetAllAsync_ReturnIEnumerableProduct()
         {
-            //Arrange
 
-            //Act
+            #region Act
             var result = _productRepository.GetAllAsync();
+            #endregion
 
-            //Assert
+            #region Assert
             result.Should().BeOfType<Task<IEnumerable<Product>>>();
+            #endregion
         }
 
-
-        public async void ProductRepository_GetByIdAsync_ReturnNullableProduct()
+        [Fact]
+        public void ProductRepository_GetByIdAsync_ReturnNullableProduct()
         {
-            //Arrange
+            #region Arrange
             var ordeItemId = 1;
-            //Act
+            #endregion
+            #region Act
             var result = _productRepository.GetByIdAsync(ordeItemId);
+            #endregion
 
-            //Assert
+            #region Assert
             result.Should().BeOfType<Task<Product?>>();
+            #endregion
         }
 
     }
