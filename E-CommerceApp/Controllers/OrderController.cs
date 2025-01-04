@@ -32,6 +32,7 @@ namespace E_CommerceApp.Controllers
                 _unitOfWork.CreateTransaction();
 
                 Order? order = await _unitOfWork.Orders.GetByIdAsync(orderId);
+                if (order == null) return NotFound("Order cannot be found");
                 List<OrderItem> orderItems = await _unitOfWork.OrderItems.GetOrderItems(new GetOrderItemsDto { OrderId = orderId});
                 decimal orderTotalAmount = 0;
                 foreach (OrderItem item in orderItems)
@@ -44,7 +45,7 @@ namespace E_CommerceApp.Controllers
                 order.TotalAmount = orderTotalAmount;
 
                 order = await _unitOfWork.Orders.UpdateAsync(order);
-                if (order == null) return NotFound("Order not found ");
+                if (order == null) return StatusCode(500,"Order not found ");
 
                 await _emailSender.SendEmailAsync(User.GetUserEmail(), "Order Confirmation", "Order is on the way");
 

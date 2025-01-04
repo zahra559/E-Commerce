@@ -1,4 +1,5 @@
 ﻿using E_CommerceApp.Controllers;
+using E_CommerceApp.Dtos.Requests.Order;
 using E_CommerceApp.Interfaces;
 using E_CommerceApp.Models;
 using E_CommerceApp.Repositories;
@@ -11,36 +12,38 @@ namespace E_CommerceApp.Test.ControllerTest
 {
     public class OrderControllerTest
     {
-        private readonly UnitOfWork _unitOfWork;
+        private DbContextHelper _dbHelper;
+
+        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderItemRepository _orderItemRepository;
         private readonly IEmailSender _emailSender;
-        private IOrderRepository _orderRepository;
-        private readonly OrderController _orderController;
+        private UnitOfWork _unitOfWork;
 
-
+        private OrderController _orderController;
 
         public OrderControllerTest()
         {
             #region Dependencies
             _emailSender = A.Fake<IEmailSender>();
             _orderRepository = A.Fake<IOrderRepository>();
+            _orderItemRepository = A.Fake<IOrderItemRepository>();
 
 
-            var dbHelper = new DbContextHelper();
-            var dbContext = dbHelper.GetDBContext();
+            _dbHelper = new DbContextHelper();
+
             #endregion
 
             #region SUT
-            _unitOfWork = new UnitOfWork(dbContext);
-            _orderController = new OrderController(_unitOfWork, _emailSender);
+     
             #endregion
         }
         [Fact]
-        public  void OrderItemController_GetOrder_ReturnsSuccess()
+        public async  void OrderItemController_GetOrder_ReturnsSuccess()
         {
             #region Arrange
             int orderId = 1;
-            var order = A.Fake<Order>();
-            A.CallTo(() => _orderRepository.GetOrderByIdAsync(orderId)).Returns(order);
+            var dbContext = await _dbHelper.GetDBContext();
+            _orderController = new OrderController(_unitOfWork, _emailSender);
             #endregion
 
             #region Act
@@ -49,6 +52,27 @@ namespace E_CommerceApp.Test.ControllerTest
 
             #region Assert
             result.Should().BeOfType<Task<IActionResult>>();
+            #endregion
+        }
+
+        [Fact]
+        public async void OrderItemController_CheckoutOrder_ReturnsSuccess()
+        {
+            #region Arrange
+            int orderId = 16;
+            string summary = "Summary";
+            var dbContext = await _dbHelper.GetDBContext();
+            _unitOfWork = new UnitOfWork(dbContext);
+            _orderController = new OrderController(_unitOfWork, _emailSender);
+            #endregion
+
+            #region Act
+            var result = _orderController.CheckoutOrder(orderId, new CheckoutOrderDto { Summary = summary});
+            #endregion
+
+            #region Assert
+            result.Should().BeOfType<Task<IActionResult>>();
+            result.Should().NotBeNull();
             #endregion
         }
     }

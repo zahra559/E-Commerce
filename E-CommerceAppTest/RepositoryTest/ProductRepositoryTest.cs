@@ -10,17 +10,16 @@ namespace E_CommerceApp.Test.RepositoryTest
     public class ProductRepositoryTest
     {
         private ProductRepository _productRepository;
+        private DbContextHelper _dbHelper;
 
         public ProductRepositoryTest()
         {
-            var dbHelper = new DbContextHelper();
-            var dbContext = dbHelper.GetDBContext();
-            _productRepository = new ProductRepository(dbContext);
+            _dbHelper = new DbContextHelper();
 
         }
 
         [Fact]
-        public void ProductRepository_InsertAsync_ReturnProduct()
+        public async void ProductRepository_InsertAsync_ReturnProduct()
         {
             #region Arrange
             var product = new Product
@@ -30,6 +29,8 @@ namespace E_CommerceApp.Test.RepositoryTest
                 Price = 5,
                 Stock = "Clothe"
             };
+            var dbContext = await _dbHelper.GetDBContext();
+            _productRepository = new ProductRepository(dbContext);
             #endregion
 
             #region Act
@@ -42,7 +43,7 @@ namespace E_CommerceApp.Test.RepositoryTest
         }
 
         [Fact]
-        public void ProductRepository_UpdateAsync_ReturnProduct()
+        public async void ProductRepository_UpdateAsync_ReturnProduct()
         {
             #region Arrange
             var product = new Product
@@ -53,6 +54,8 @@ namespace E_CommerceApp.Test.RepositoryTest
                 Price = 20,
                 Stock = "Clothe"
             };
+            var dbContext = await _dbHelper.GetDBContext();
+            _productRepository = new ProductRepository(dbContext);
             #endregion
 
             #region Act
@@ -65,10 +68,12 @@ namespace E_CommerceApp.Test.RepositoryTest
         }
 
         [Fact]
-        public void ProductRepository_DeleteAsync_ReturnProduct()
+        public async void ProductRepository_DeleteAsync_ReturnProduct()
         {
             #region Arrange
             var productId = 12;
+            var dbContext = await _dbHelper.GetDBContext();
+            _productRepository = new ProductRepository(dbContext);
             #endregion
 
             #region Act
@@ -81,7 +86,7 @@ namespace E_CommerceApp.Test.RepositoryTest
         }
 
         [Fact]
-        public void ProductRepository_GetProducts_ReturnListProduct()
+        public async void ProductRepository_GetProducts_ReturnListProduct()
         {
             #region Arrange
             var searchCriteria = new GetProductsDto
@@ -89,6 +94,8 @@ namespace E_CommerceApp.Test.RepositoryTest
                 ProductName = "Product2",
                 StockName = "Food"
             };
+            var dbContext = await _dbHelper.GetDBContext();
+            _productRepository = new ProductRepository(dbContext);
             #endregion
 
             #region Act
@@ -101,9 +108,13 @@ namespace E_CommerceApp.Test.RepositoryTest
         }
 
         [Fact]
-        public void ProductRepository_GetAllAsync_ReturnIEnumerableProduct()
+        public async void ProductRepository_GetAllAsync_ReturnIEnumerableProduct()
         {
 
+            #region Arrange 
+            var dbContext = await _dbHelper.GetDBContext();
+            _productRepository = new ProductRepository(dbContext);
+            #endregion
             #region Act
             var result = _productRepository.GetAllAsync();
             #endregion
@@ -114,10 +125,12 @@ namespace E_CommerceApp.Test.RepositoryTest
         }
 
         [Fact]
-        public void ProductRepository_GetByIdAsync_ReturnNullableProduct()
+        public async void ProductRepository_GetByIdAsync_ReturnNullableProduct()
         {
             #region Arrange
             var ordeItemId = 1;
+            var dbContext = await _dbHelper.GetDBContext();
+            _productRepository = new ProductRepository(dbContext);
             #endregion
             #region Act
             var result = _productRepository.GetByIdAsync(ordeItemId);
