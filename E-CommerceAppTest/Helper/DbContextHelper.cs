@@ -16,43 +16,46 @@ namespace E_CommerceApp.Test.Helper
             var databaseContext = new ApplicationDBContext(options);
 
             databaseContext.Database.EnsureCreated();
-            if (databaseContext.Products.Count() > 0)
+            for (int i = 0; i < 10; i++)
             {
-                for (int i = 0; i < 10; i++)
+                if (databaseContext.Products.Count() < 10)
                 {
                     databaseContext.Products.Add(
                     new Product
                     {
-                        ProductId = i,
+                        ProductId = i + 1,
                         Name = "Product" + i,
                         Description = "Desc",
                         Price = 3,
                         Stock = "Food"
                     });
-                    databaseContext.Orders.Add(
-                    new Order
-                    {
-                        OrderId = i,
-                        OrderSummary = string.Empty,
-                        ApplicantId = 1.ToString(),
-                        OrderDate = null,
-                        CheckedOut = false,
-                        TotalAmount = 0,
-                        OrderItems = new List<OrderItem>
-                        {
-                            new OrderItem
-                            {
-                                OrderId = i,
-                                ProductId = i,
-                                Quantity = 1,
-                                Price = 100,
-                            }
-                        }
-                    });
                 }
-               await databaseContext.SaveChangesAsync();
+                if (databaseContext.Orders.Count() < 10)
+                {
+                    databaseContext.Orders.Add(
+                        new Order
+                        {
+                            OrderId = i + 1,
+                            OrderSummary = string.Empty,
+                            ApplicantId = 1.ToString(),
+                            OrderDate = null,
+                            CheckedOut = false,
+                            TotalAmount = 0,
+                            OrderItems = new List<OrderItem>
+                            {
+                                new OrderItem
+                                {
+                                    OrderId = i,
+                                    ProductId = i,
+                                    Quantity = 1,
+                                    Price = 100,
+                                }
+                            }
+                        });
+                }
             }
-            return databaseContext;
+               await databaseContext.SaveChangesAsync();
+               return databaseContext;
         }
 
     }

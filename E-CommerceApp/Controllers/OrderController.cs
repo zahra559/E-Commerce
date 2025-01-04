@@ -1,6 +1,5 @@
 ﻿using E_CommerceApp.Constants;
 using E_CommerceApp.Dtos.Requests.Order;
-using E_CommerceApp.Dtos.Requests.OrderItem;
 using E_CommerceApp.Extensions;
 using E_CommerceApp.Interfaces;
 using E_CommerceApp.Mappers;

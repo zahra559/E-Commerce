@@ -14,8 +14,8 @@ namespace E_CommerceApp.Test.ControllerTest
     {
         private DbContextHelper _dbHelper;
 
-        private readonly IOrderRepository _orderRepository;
-        private readonly IOrderItemRepository _orderItemRepository;
+        //private readonly IOrderRepository _orderRepository;
+        //private readonly IOrderItemRepository _orderItemRepository;
         private readonly IEmailSender _emailSender;
         private UnitOfWork _unitOfWork;
 
@@ -25,16 +25,10 @@ namespace E_CommerceApp.Test.ControllerTest
         {
             #region Dependencies
             _emailSender = A.Fake<IEmailSender>();
-            _orderRepository = A.Fake<IOrderRepository>();
-            _orderItemRepository = A.Fake<IOrderItemRepository>();
-
-
+            //_orderRepository = A.Fake<IOrderRepository>();
+            //_orderItemRepository = A.Fake<IOrderItemRepository>();
             _dbHelper = new DbContextHelper();
 
-            #endregion
-
-            #region SUT
-     
             #endregion
         }
         [Fact]
@@ -43,6 +37,7 @@ namespace E_CommerceApp.Test.ControllerTest
             #region Arrange
             int orderId = 1;
             var dbContext = await _dbHelper.GetDBContext();
+            _unitOfWork = new UnitOfWork(dbContext);
             _orderController = new OrderController(_unitOfWork, _emailSender);
             #endregion
 
