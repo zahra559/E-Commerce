@@ -71,7 +71,6 @@ namespace E_CommerceApp.Controllers
                 await _unitOfWork.Save();
                 _unitOfWork.Commit();
 
-
                 return Ok(orderItem.OrderItemToOrderItemDto());
             }
             catch (Exception ex)
@@ -92,7 +91,7 @@ namespace E_CommerceApp.Controllers
 
                 Product? product = await _unitOfWork.Products.GetByIdAsync(dto.ProductId);
 
-                OrderItem? orderItem = await _unitOfWork.OrderItems.UpdateAsync(dto.UpdateOrderIemDtoToOrderItem(orderItemId, product.Price * dto.Quantity));
+                OrderItem? orderItem = await _unitOfWork.OrderItems.UpdateAsync(dto.UpdateOrderIemDtoToOrderItem(orderItemId,product, product.Price * dto.Quantity));
                 if (orderItem == null) return NotFound("Product not found in the shopping cart");
 
                 await _unitOfWork.Save();

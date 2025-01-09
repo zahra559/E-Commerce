@@ -20,13 +20,14 @@ namespace E_CommerceApp.Mappers
             };
         }
 
-        public static OrderItem UpdateOrderIemDtoToOrderItem(this UpdateOrderItemDto updateOrderItemDto, int orderItemId,decimal orderItemPrice)
+        public static OrderItem UpdateOrderIemDtoToOrderItem(this UpdateOrderItemDto updateOrderItemDto, int orderItemId,Product product, decimal orderItemPrice)
         {
             return new OrderItem
             {
                 OrderItemId = orderItemId,
                 ProductId = updateOrderItemDto.ProductId,
                 OrderId = updateOrderItemDto.OrderId,
+                Product = product,
                 Quantity = updateOrderItemDto.Quantity,
                 Price = orderItemPrice,
 

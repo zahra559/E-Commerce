@@ -8,7 +8,6 @@ namespace E_CommerceApp.Test.RepositoryTest
 {
     public class OrderItemRepositoryTest
     {
-        private OrderItemRepository _orderItemRepository;
         private DbContextHelper _dbHelper;
 
         public OrderItemRepositoryTest()
@@ -28,11 +27,11 @@ namespace E_CommerceApp.Test.RepositoryTest
                 Price = 6
             };
             var dbContext = await _dbHelper.GetDBContext();
-            _orderItemRepository = new OrderItemRepository(dbContext);
+           var orderItemRepository = new OrderItemRepository(dbContext);
             #endregion
 
             #region Act
-            var result = _orderItemRepository.InsertAsync(orderItem);
+            var result = orderItemRepository.InsertAsync(orderItem);
             #endregion
 
             #region Assert
@@ -51,11 +50,11 @@ namespace E_CommerceApp.Test.RepositoryTest
                 ProductId= 3,
             };
             var dbContext = await _dbHelper.GetDBContext();
-            _orderItemRepository = new OrderItemRepository(dbContext);
+            var orderItemRepository = new OrderItemRepository(dbContext);
             #endregion
 
             #region Act
-            var result = _orderItemRepository.UpdateAsync(orderItem);
+            var result = orderItemRepository.UpdateAsync(orderItem);
             #endregion
 
             #region Assert
@@ -69,11 +68,11 @@ namespace E_CommerceApp.Test.RepositoryTest
             #region Arrange
             var orderId = 1;
             var dbContext = await _dbHelper.GetDBContext();
-            _orderItemRepository = new OrderItemRepository(dbContext);
+            var orderItemRepository = new OrderItemRepository(dbContext);
             #endregion
 
             #region Act
-            var result = _orderItemRepository.DeleteAsync(orderId);
+            var result = orderItemRepository.DeleteAsync(orderId);
             #endregion
 
             #region Assert
@@ -92,11 +91,11 @@ namespace E_CommerceApp.Test.RepositoryTest
                 OrderId = 1
             };
             var dbContext = await _dbHelper.GetDBContext();
-            _orderItemRepository = new OrderItemRepository(dbContext);
+            var orderItemRepository = new OrderItemRepository(dbContext);
             #endregion
 
             #region Act
-            var result = _orderItemRepository.GetOrderItems(searchCriteria);
+            var result = orderItemRepository.GetOrderItems(searchCriteria);
             #endregion
 
             #region Assert
@@ -110,11 +109,11 @@ namespace E_CommerceApp.Test.RepositoryTest
         {
             #region Arrange
             var dbContext = await _dbHelper.GetDBContext();
-            _orderItemRepository = new OrderItemRepository(dbContext);
+            var orderItemRepository = new OrderItemRepository(dbContext);
             #endregion
 
             #region Act
-            var result = _orderItemRepository.GetAllAsync();
+            var result = orderItemRepository.GetAllAsync();
             #endregion
 
             #region Assert
@@ -129,11 +128,11 @@ namespace E_CommerceApp.Test.RepositoryTest
             #region Arrange
             var ordeItemId = 1;
             var dbContext = await _dbHelper.GetDBContext();
-            _orderItemRepository = new OrderItemRepository(dbContext);
+            var orderItemRepository = new OrderItemRepository(dbContext);
             #endregion
 
             #region Act
-            var result = _orderItemRepository.GetByIdAsync(ordeItemId);
+            var result = orderItemRepository.GetByIdAsync(ordeItemId);
             #endregion
 
             #region Assert

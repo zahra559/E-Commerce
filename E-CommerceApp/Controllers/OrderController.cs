@@ -44,7 +44,7 @@ namespace E_CommerceApp.Controllers
                 order.TotalAmount = orderTotalAmount;
 
                 order = await _unitOfWork.Orders.UpdateAsync(order);
-                if (order == null) return StatusCode(500,"Order not found ");
+                if (order == null) return StatusCode(500,"Something went wrong");
 
                 await _emailSender.SendEmailAsync(User.GetUserEmail(), "Order Confirmation", "Order is on the way");
 

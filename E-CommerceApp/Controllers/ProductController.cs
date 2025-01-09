@@ -30,13 +30,13 @@ namespace E_CommerceApp.Controllers
         public async Task<IActionResult> GetProducts([FromQuery] GetProductsDto criteria)
         {
             var products = await _unitOfWork.Products.GetProducts(criteria);
-            var productDtos = products.Select(s => s.ProductToProductDto());
+            var productDtos =  products.Select(s => s.ProductToProductDto()).ToList();
             return Ok(productDtos);
         }
 
         [Authorize(Roles = RoleTypes.ADMIN_ROLE)]
         [HttpGet("products")]
-        public async Task<IActionResult> GetProducts()
+        public async Task<IActionResult> GetCachedProducts()
         {
             IEnumerable<Product> products;
 
@@ -48,7 +48,7 @@ namespace E_CommerceApp.Controllers
                     new MemoryCacheEntryOptions()
                     .SetAbsoluteExpiration(TimeSpan.FromSeconds(5000)));
             }
-            var productDtos = products.Select(s => s.ProductToProductDto());
+            var productDtos = products.Select(s => s.ProductToProductDto()).ToList();
             return Ok(productDtos);
         }
 

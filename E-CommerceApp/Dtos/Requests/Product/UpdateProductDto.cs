@@ -5,6 +5,7 @@ namespace E_CommerceApp.Dtos.Requests.Product
 {
     public class UpdateProductDto
     {
+        public int Id { get; set; }
         [Required]
         [MaxLength(150, ErrorMessage = "Product Name must be less than 150 characters")]
         public string Name { get; set; } = string.Empty;

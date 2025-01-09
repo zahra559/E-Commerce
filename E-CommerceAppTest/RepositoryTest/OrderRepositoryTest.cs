@@ -7,7 +7,6 @@ namespace E_CommerceApp.Test.RepositoryTest
 {
     public class OrderRepositoryTest
     {
-        private OrderRepository _orderRepository;
         private DbContextHelper _dbHelper;
 
         public OrderRepositoryTest()
@@ -31,11 +30,11 @@ namespace E_CommerceApp.Test.RepositoryTest
             };
 
             var dbContext = await _dbHelper.GetDBContext();
-            _orderRepository = new OrderRepository(dbContext);
+            var orderRepository = new OrderRepository(dbContext);
             #endregion
 
             #region Act
-            var result = _orderRepository.InsertAsync(order);
+            var result = orderRepository.InsertAsync(order);
             #endregion
 
             #region Assert
@@ -58,11 +57,11 @@ namespace E_CommerceApp.Test.RepositoryTest
                 OrderDate = DateTime.Now,
             };
             var dbContext = await _dbHelper.GetDBContext();
-            _orderRepository = new OrderRepository(dbContext);
+            var orderRepository = new OrderRepository(dbContext);
             #endregion
 
             #region Act
-            var result = _orderRepository.UpdateAsync(order);
+            var result = orderRepository.UpdateAsync(order);
             #endregion
 
             #region Assert
@@ -76,10 +75,10 @@ namespace E_CommerceApp.Test.RepositoryTest
             #region Arrange
             var orderId = 12;
             var dbContext = await _dbHelper.GetDBContext();
-            _orderRepository = new OrderRepository(dbContext);
+            var orderRepository = new OrderRepository(dbContext);
             #endregion
             #region Act
-            var result = _orderRepository.DeleteAsync(orderId);
+            var result = orderRepository.DeleteAsync(orderId);
             #endregion
 
             #region Assert
@@ -93,11 +92,11 @@ namespace E_CommerceApp.Test.RepositoryTest
             #region Arrange
             var orderId = 1;
             var dbContext = await _dbHelper.GetDBContext();
-            _orderRepository = new OrderRepository(dbContext);
+            var orderRepository = new OrderRepository(dbContext);
             #endregion
 
             #region Act
-            var result = _orderRepository.GetOrderByIdAsync(orderId);
+            var result = orderRepository.GetOrderByIdAsync(orderId);
             #endregion
 
             #region Assert
@@ -110,11 +109,11 @@ namespace E_CommerceApp.Test.RepositoryTest
 
             #region Arrange
             var dbContext = await _dbHelper.GetDBContext();
-            _orderRepository = new OrderRepository(dbContext);
+            var orderRepository = new OrderRepository(dbContext);
             #endregion
 
             #region Act
-            var result = _orderRepository.GetAllAsync();
+            var result = orderRepository.GetAllAsync();
             #endregion
 
             #region Assert
@@ -128,10 +127,10 @@ namespace E_CommerceApp.Test.RepositoryTest
             #region Arrange
             var orderId = 1;
             var dbContext = await _dbHelper.GetDBContext();
-            _orderRepository = new OrderRepository(dbContext);
+            var orderRepository = new OrderRepository(dbContext);
             #endregion
             #region Act
-            var result = _orderRepository.GetByIdAsync(orderId);
+            var result = orderRepository.GetByIdAsync(orderId);
             #endregion
 
             #region Assert
